@@ -3,6 +3,8 @@ import bcrypt from "bcryptjs"
 import db from "@/lib/db"
 import { z } from "zod"
 
+export const dynamic = 'force-dynamic'
+
 const registerSchema = z.object({
   name: z.string().min(2),
   email: z.string().email(),
@@ -45,7 +47,7 @@ export async function POST(req: Request) {
   } catch (error: any) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
-        { error: error.errors },
+        { error: (error as any).errors },
         { status: 400 }
       )
     }
