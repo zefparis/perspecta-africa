@@ -4,6 +4,8 @@ import "../globals.css";
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { ThemeProvider } from "@/components/theme-provider";
+import { SessionProvider } from "next-auth/react";
+import { auth } from "@/auth";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,23 +31,26 @@ export default async function RootLayout({
 }>) {
   const { locale } = await params;
   const messages = await getMessages();
+  const session = await auth();
 
   return (
     <html lang={locale} suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-background text-foreground`}
       >
-        <NextIntlClientProvider messages={messages} locale={locale}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-            storageKey="perspecta-africa-theme"
-          >
-            {children}
-          </ThemeProvider>
-        </NextIntlClientProvider>
+        <SessionProvider session={session}>
+          <NextIntlClientProvider messages={messages} locale={locale}>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+              storageKey="perspecta-africa-theme"
+            >
+              {children}
+            </ThemeProvider>
+          </NextIntlClientProvider>
+        </SessionProvider>
       </body>
     </html>
   );

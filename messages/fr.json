@@ -2,5 +2,40 @@
   "Index": {
     "title": "PERSPECTA-AFRICA",
     "description": "Outil d'orientation professionnelle pour l'Afrique"
+  },
+  "Auth": {
+    "signin": "Se connecter",
+    "signup": "S'inscrire",
+    "signout": "Déconnexion",
+    "email": "Adresse Email",
+    "password": "Mot de passe",
+    "name": "Nom complet",
+    "or": "Ou continuer avec",
+    "noAccount": "Pas encore de compte ?",
+    "hasAccount": "Déjà un compte ?",
+    "submit": "Soumettre",
+    "register": "S'inscrire",
+    "login": "Se connecter",
+    "google": "Google",
+    "errors": {
+      "credentials": "Email ou mot de passe invalide",
+      "exists": "L'utilisateur existe déjà",
+      "generic": "Une erreur est survenue"
+    }
+  },
+  "Profile": {
+    "title": "Mon Profil",
+    "personalInfo": "Informations Personnelles",
+    "location": "Localisation",
+    "bio": "Bio",
+    "save": "Enregistrer les modifications",
+    "uploadAvatar": "Télécharger l'avatar",
+    "uploading": "Téléchargement...",
+    "success": "Profil mis à jour avec succès"
+  },
+  "Navigation": {
+    "home": "Accueil",
+    "profile": "Profil",
+    "assessments": "Évaluations"
   }
 }
