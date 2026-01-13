@@ -17,6 +17,7 @@
     "register": "S'inscrire",
     "login": "Se connecter",
     "google": "Google",
+    "uploading": "Chargement...",
     "errors": {
       "credentials": "Email ou mot de passe invalide",
       "exists": "L'utilisateur existe déjà",
@@ -26,6 +27,8 @@
   "Profile": {
     "title": "Mon Profil",
     "personalInfo": "Informations Personnelles",
+    "name": "Nom complet",
+    "email": "Adresse Email",
     "location": "Localisation",
     "bio": "Bio",
     "save": "Enregistrer les modifications",

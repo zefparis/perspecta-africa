@@ -17,6 +17,7 @@
     "register": "Register",
     "login": "Login",
     "google": "Google",
+    "uploading": "Loading...",
     "errors": {
       "credentials": "Invalid email or password",
       "exists": "User already exists",
@@ -26,6 +27,8 @@
   "Profile": {
     "title": "My Profile",
     "personalInfo": "Personal Information",
+    "name": "Full Name",
+    "email": "Email Address",
     "location": "Location",
     "bio": "Bio",
     "save": "Save Changes",
