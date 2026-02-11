@@ -6,7 +6,6 @@ import { getMessages } from 'next-intl/server';
 import { ThemeProvider } from "@/components/theme-provider";
 import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
-import Script from "next/script"; // 👈 AJOUT
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -52,13 +51,6 @@ export default async function RootLayout({
             </ThemeProvider>
           </NextIntlClientProvider>
         </SessionProvider>
-
-        {/* HCS-U7 Widget */}
-        <Script
-          src="https://widget.hcs-u7.online/v1/hcs-widget.js"
-          data-widget="TON_WIDGET_PUBLIC_ID"
-          strategy="afterInteractive"
-        />
       </body>
     </html>
   );

@@ -1,14 +1,14 @@
 'use client';
 
 import { useState } from 'react';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import Link from 'next/link';
+import { Link } from '@/navigation';
 
 const signUpSchema = z.object({
   name: z.string().min(2),
@@ -20,6 +20,7 @@ type SignUpValues = z.infer<typeof signUpSchema>;
 
 export default function SignUpPage() {
   const t = useTranslations('Auth');
+  const locale = useLocale();
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -46,7 +47,7 @@ export default function SignUpPage() {
           name: data.name,
           email: data.email,
           password: data.password,
-          locale: 'en', // Default, should ideally grab from current locale
+          locale,
         }),
       });
 

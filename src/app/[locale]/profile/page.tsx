@@ -244,7 +244,7 @@ export default function ProfilePage() {
 
                 <div>
                   <label htmlFor="country" className="block text-sm font-medium mb-2">
-                    Country
+                    {t('country')}
                   </label>
                   <input
                     id="country"

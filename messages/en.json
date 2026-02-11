@@ -1,7 +1,9 @@
 {
   "Index": {
     "title": "PERSPECTA-AFRICA",
-    "description": "Professional orientation tool for Africa"
+    "description": "Professional orientation tool for Africa",
+    "getStarted": "Get Started",
+    "learnMore": "Learn More"
   },
   "Auth": {
     "signin": "Sign In",
@@ -31,10 +33,15 @@
     "email": "Email Address",
     "location": "Location",
     "bio": "Bio",
+    "country": "Country",
     "save": "Save Changes",
     "uploadAvatar": "Upload Avatar",
     "uploading": "Uploading...",
-    "success": "Profile updated successfully"
+    "success": "Profile updated successfully",
+    "errors": {
+      "uploadFailed": "Upload failed",
+      "generic": "Something went wrong"
+    }
   },
   "Navigation": {
     "home": "Home",

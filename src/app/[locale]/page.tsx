@@ -1,6 +1,6 @@
-import Image from "next/image";
 import { Navbar } from "@/components/navbar";
 import { useTranslations } from "next-intl";
+import { Link } from "@/navigation";
 
 export default function Home() {
   const t = useTranslations("Index");
@@ -17,11 +17,14 @@ export default function Home() {
             {t("description")}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-            <button className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8">
-              Get Started
-            </button>
+            <Link
+              href="/auth/signup"
+              className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8"
+            >
+              {t("getStarted")}
+            </Link>
             <button className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 px-8">
-              Learn More
+              {t("learnMore")}
             </button>
           </div>
         </div>
