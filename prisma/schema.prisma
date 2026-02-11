@@ -50,12 +50,23 @@ model User {
   region        String?   // African region
   bio           String?   @db.Text
   location      String?   // General location string if needed
+  latitude      Float?
+  longitude     Float?
+  radius        Int       @default(50) // km for job search
+  
+  // Premium access
+  hasPaid       Boolean   @default(false)
+  paidAt        DateTime?
   
   accounts      Account[]
   sessions      Session[]
   
   // Relations
-  assessments   Assessment[]
+  assessments      Assessment[]
+  careerProjects   CareerProject[]
+  accessibilities  Accessibility[]
+  reports          Report[]
+  moduleProgress   ModuleProgress[]
 }
 
 model VerificationToken {
@@ -112,9 +123,157 @@ model Assessment {
   id          String   @id @default(cuid())
   userId      String
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  moduleType  String   // PARCOURS_VIE, EXPERIENCES_STAR, VALEURS, RIASEC, COGNITIF, EVALUATION_COGNITIVE
   status      String   @default("STARTED") // STARTED, COMPLETED
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   
-  results     Json?    // Store analysis results here
+  data        Json?    // Module-specific data
+  results     Json?    // Analysis results
+  score       Float?   // Overall score 0-100
+}
+
+// Career Project Model
+
+model CareerProject {
+  id              String   @id @default(cuid())
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  titleEn         String
+  titleFr         String
+  titlePt         String
+  descriptionEn   String?  @db.Text
+  descriptionFr   String?  @db.Text
+  descriptionPt   String?  @db.Text
+  
+  status          String   @default("DRAFT") // DRAFT, ACTIVE, COMPLETED, ARCHIVED
+  
+  // ILO Job matching
+  targetJobIds    String[] // Array of Job IDs
+  
+  // Entrepreneurship fields
+  isEntrepreneurship Boolean @default(false)
+  businessType       String? // Formal, Informal, Cooperative
+  sector             String?
+  
+  // Timeline
+  startDate       DateTime?
+  targetDate      DateTime?
+  
+  // Resources needed
+  fundingNeeded   Float?
+  trainingNeeded  String[] // Array of training types
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+// Accessibility Model
+
+model Accessibility {
+  id              String   @id @default(cuid())
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Disability types
+  hasVisualImpairment    Boolean @default(false)
+  hasHearingImpairment   Boolean @default(false)
+  hasMobilityImpairment  Boolean @default(false)
+  hasCognitiveImpairment Boolean @default(false)
+  otherImpairment        String?
+  
+  // Needs
+  needsAssistiveTech     Boolean @default(false)
+  needsWorkplaceAdaptation Boolean @default(false)
+  needsTransportSupport  Boolean @default(false)
+  
+  // Available support
+  localSupportOrgs       String[] // Array of organization names
+  governmentAid          String?
+  
+  notes           String?  @db.Text
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+// Formation Model
+
+model Formation {
+  id              String   @id @default(cuid())
+  
+  titleEn         String
+  titleFr         String
+  titlePt         String
+  descriptionEn   String?  @db.Text
+  descriptionFr   String?  @db.Text
+  descriptionPt   String?  @db.Text
+  
+  provider        String   // Organization name
+  country         String   // ISO country code
+  city            String?
+  isOnline        Boolean  @default(false)
+  
+  // ILO Job relevance
+  relatedJobIds   String[] // Array of Job IDs
+  
+  duration        String?  // e.g., "3 months", "1 year"
+  cost            Float?
+  currency        String?  @default("USD")
+  
+  url             String?
+  contactEmail    String?
+  contactPhone    String?
+  
+  // Filters
+  isCertified     Boolean  @default(false)
+  isGovernmentFunded Boolean @default(false)
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+// Report Model
+
+model Report {
+  id              String   @id @default(cuid())
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  type            String   // FULL_ASSESSMENT, CAREER_PROJECT, SKILLS_ANALYSIS
+  
+  // Content
+  data            Json     // All report data
+  
+  // PDF generation
+  pdfUrl          String?  // Supabase storage URL
+  generatedAt     DateTime?
+  
+  // Blockchain certification (mock)
+  certificationHash String? // SHA-256 hash
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+// Module Progress Tracking
+
+model ModuleProgress {
+  id              String   @id @default(cuid())
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  moduleNumber    Int      // 1-11
+  moduleName      String   // PARCOURS_VIE, EXPERIENCES_STAR, etc.
+  
+  isCompleted     Boolean  @default(false)
+  completedAt     DateTime?
+  
+  progress        Int      @default(0) // 0-100
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  @@unique([userId, moduleNumber])
 }
